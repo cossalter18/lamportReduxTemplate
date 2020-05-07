@@ -3,20 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './Components/App/App';
 import { createStore } from 'redux';
-import { Provider } from 'react-redux'; 
+import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
-const reducerInitialState = 0;
+const reducerInitialState = [];
 // set up reducer before you can create a store
-const myReducer = ( state=reducerInitialState, action )=>{
-  console.log( 'myReducer:', state, action );
+const myReducer = (state = reducerInitialState, action) => {
+ // console.log('myReducer:', state, action);
+  if (action.type === 'setName') {
+    state = [...state, action.payload];
+  }
   return state;
 }
 // create store with reducer, to be provided to app
-const myStore = createStore( myReducer );
+const myStore = createStore(myReducer);
 
 ReactDOM.render(
-  <Provider store={ myStore }>
+  <Provider store={myStore}>
     <App />
   </Provider>,
   document.getElementById('root')
